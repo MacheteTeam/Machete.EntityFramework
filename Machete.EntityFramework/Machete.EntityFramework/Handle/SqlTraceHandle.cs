@@ -5,9 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machete.EntityFramework.Provider
+namespace Machete.EntityFramework.Handle
 {
-    public class SqlHandleProvide :ISqlHandleProvider
+    /// <summary>
+    ///  Sql Trace
+    /// </summary>
+    public class SqlTraceHandle : ISqlHandle
     {
         public void Execute(string sql)
         {

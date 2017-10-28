@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Machete.EntityFramework.Provider;
+using Machete.EntityFramework.Handle;
 
 namespace Machete.EntityFramework
 {
@@ -16,13 +16,12 @@ namespace Machete.EntityFramework
     class DbSqlInterceptor : DbCommandInterceptor
     {
 
-        public DbSqlInterceptor SetSqlHandleProvider(ISqlHandleProvider sqlHandleProvider)
-        {
-            this.SqlHandleProvider = sqlHandleProvider;
-            return this;
-        }
+        public List<ISqlHandle> Handles = new List<ISqlHandle>();
 
-        public ISqlHandleProvider SqlHandleProvider;
+        public void AddSqlHandle(ISqlHandle sqlHandle)
+        {
+            Handles.Add(sqlHandle);
+        }
 
         public override void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
@@ -32,9 +31,9 @@ namespace Machete.EntityFramework
         public override void NonQueryExecuted(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
             if (interceptionContext.Exception != null)
-                SqlHandleProvider.Execute(interceptionContext.Exception);
+                ExecuteException(interceptionContext.Exception);
             else
-                SqlHandleProvider.Execute(command.CommandText);
+                ExecuteSql(command.CommandText);
             base.NonQueryExecuted(command, interceptionContext);
         }
 
@@ -46,9 +45,9 @@ namespace Machete.EntityFramework
         public override void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
             if (interceptionContext.Exception != null)
-                SqlHandleProvider.Execute(interceptionContext.Exception);
+                ExecuteException(interceptionContext.Exception);
             else
-                SqlHandleProvider.Execute(command.CommandText);
+                ExecuteSql(command.CommandText);
             base.ReaderExecuted(command, interceptionContext);
         }
 
@@ -61,10 +60,27 @@ namespace Machete.EntityFramework
         public override void ScalarExecuted(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
             if (interceptionContext.Exception != null)
-                SqlHandleProvider.Execute(interceptionContext.Exception);
+                ExecuteException(interceptionContext.Exception);
             else
-                SqlHandleProvider.Execute(command.CommandText);
+                ExecuteSql(command.CommandText);
             base.ScalarExecuted(command, interceptionContext);
+        }
+
+
+        protected void ExecuteSql(string sql)
+        {
+            foreach (var handle in Handles)
+            {
+                handle.Execute(sql);
+            }
+        }
+
+        protected void ExecuteException(Exception exception)
+        {
+            foreach (var handle in Handles)
+            {
+                handle.Execute(exception);
+            }
         }
     }
 }

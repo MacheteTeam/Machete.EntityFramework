@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Machete.EntityFramework.Provider
+namespace Machete.EntityFramework.Handle
 {
-    public interface ISqlHandleProvider
+    public interface ISqlHandle
     {
         void Execute(string sql);
 

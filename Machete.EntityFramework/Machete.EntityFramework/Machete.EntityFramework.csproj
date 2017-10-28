@@ -54,14 +54,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbSqlInterceptor.cs" />
+    <Compile Include="Handle\ISqlHandle.cs" />
+    <Compile Include="Handle\SqlOutputHandle.cs" />
+    <Compile Include="Handle\SqlTraceHandle.cs" />
     <Compile Include="MacheteConfiguration.cs" />
+    <Compile Include="MacheteConfigurationInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\ISqlHandleProvider.cs" />
-    <Compile Include="Provider\SqlHandleProvide.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Provider\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

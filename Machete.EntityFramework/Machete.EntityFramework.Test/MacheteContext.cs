@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Machete.EntityFramework.Test
 {
 
-    [DbConfigurationType(typeof(MacheteConfiguration))]
+    //[DbConfigurationType(typeof(MacheteConfiguration))]
     //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class MacheteContext : DbContext
     {
