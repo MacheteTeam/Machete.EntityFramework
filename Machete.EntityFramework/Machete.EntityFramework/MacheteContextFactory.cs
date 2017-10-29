@@ -10,15 +10,13 @@ namespace Machete.EntityFramework
 {
     public class MacheteContextFactory
     {
-        static MacheteContextFactory()
-        {
-
-        }
 
         public static T CreateDbContext<T>(int partitionSeed) where T : DbContext, new()
         {
             string connectionName;
-            ConnectionConfig.Sub.TryGetValue(ComputePartition(partitionSeed), out connectionName);
+            int id = 0;
+            id = ConnectionConfig.PartitionStrategyFunc == null ? ComputePartition(partitionSeed) : ConnectionConfig.PartitionStrategyFunc(partitionSeed);
+            ConnectionConfig.Sub.TryGetValue(id, out connectionName);
             if (string.IsNullOrEmpty(connectionName))
             {
                 throw new Exception("no connectionName");

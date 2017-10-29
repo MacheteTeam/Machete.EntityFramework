@@ -19,8 +19,9 @@ namespace Machete.EntityFramework.Test
                 .AddSubConnection("mysqldb1")
                 .AddSubConnection("mysqldb2")
                 .SetConnectionConfig();
+               
 
-             TestPartition();
+            TestPartition();
             //Test1();
 
             Console.ReadLine();
@@ -32,7 +33,7 @@ namespace Machete.EntityFramework.Test
             {
                 User user = new User()
                 {
-                    Name = "张三300"
+                    Name = "张三1235"
                 };
 
                 db.Users.Add(user);
@@ -43,7 +44,7 @@ namespace Machete.EntityFramework.Test
             {
                 User user = new User()
                 {
-                    Name = "张三3"
+                    Name = "张三1235"
                 };
 
                 db.Users.Add(user);

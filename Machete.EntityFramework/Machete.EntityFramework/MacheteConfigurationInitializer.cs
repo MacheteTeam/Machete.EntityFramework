@@ -49,6 +49,17 @@ namespace Machete.EntityFramework
             return this;
         }
 
+        /// <summary>
+        /// set  partition strategy
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public MacheteConfigurationInitializer SetPartitionStrategy(Func<int, int> func)
+        {
+            ConnectionConfig.PartitionStrategyFunc = func;
+            return this;
+        }
+
     }
 
 }
