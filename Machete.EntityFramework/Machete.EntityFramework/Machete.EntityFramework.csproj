@@ -53,12 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ConnectionConfig.cs" />
     <Compile Include="DbSqlInterceptor.cs" />
     <Compile Include="Handle\ISqlHandle.cs" />
     <Compile Include="Handle\SqlOutputHandle.cs" />
     <Compile Include="Handle\SqlTraceHandle.cs" />
     <Compile Include="MacheteConfiguration.cs" />
     <Compile Include="MacheteConfigurationInitializer.cs" />
+    <Compile Include="MacheteContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
